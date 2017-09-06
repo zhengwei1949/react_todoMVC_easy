@@ -1,4 +1,7 @@
 import React,{Component} from 'react';
+import NewItem from './NewItem';
+import All from './All';
+import Item from './Item';
 class App extends Component{
   constructor(props){
     super(props);
@@ -68,18 +71,12 @@ class App extends Component{
     })
 
     return <div>
-      <div><input type="text" onKeyDown={this.handleKeyUp} /></div>
-      <div>
-      <span>全选</span><input type="checkbox" onChange={this.handleToggleAll} />
-      </div>
+      <NewItem handleKeyUp={this.handleKeyUp} />
+      <All handleToggleAll={this.handleToggleAll} />
       <ul>
         {
           myTodos.map((item,index)=>{
-            return <li key={index}>
-                      <input type='checkbox' checked={item.completed} onChange={this.handleChange.bind(this,index)} />
-                      <span style={{textDecoration:item.completed?'line-through':''}}>{item.name}</span>
-                      <span style={{color:'red'}} onClick={this.handleDelete.bind(this,index)} >X</span>
-                    </li>
+            return <Item key={index} index={index} item={item}  handleChange={this.handleChange} handleDelete={this.handleDelete} />
           })
         }
       </ul>
